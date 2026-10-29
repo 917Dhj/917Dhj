@@ -1,5 +1,5 @@
 <!-- GitHub profile README. Proof over adjectives. -->
-<img src="./assets/px-scale.gif" width="100%" height="23" alt="" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/px-scale-dark.gif" /><img src="./assets/px-scale.gif" width="860" alt="" /></picture>
 
 # <img src="./assets/hj-pixel.gif" alt="A small pixel robot, blinking" width="76" align="left" /><br/>Hey, I'm HJ Ding 👋
 
@@ -18,7 +18,7 @@ I study how AI understands people in long video, and build the tools that help p
 
 ## <img src="./assets/px-mark.gif" width="12" height="12" alt="" />&nbsp;&nbsp;What I ship
 
-<img src="./assets/deeppapernote-project.png" width="24" alt="" />&nbsp;**<a href="https://github.com/917Dhj/DeepPaperNote">DeepPaperNote</a>** &nbsp;<sub>1.2k★ · MIT · Obsidian + Zotero</sub>
+<img src="./assets/deeppapernote-project.png" width="24" alt="" />&nbsp;**<a href="https://github.com/917Dhj/DeepPaperNote">DeepPaperNote</a>** &nbsp;<sub>MIT · Obsidian + Zotero</sub>
 
 *The single-paper ingestion layer for an LLM-maintained academic wiki.*
 
@@ -34,7 +34,7 @@ The bottleneck in agent-run research is not execution — it is that you become 
 
 <sub><code>pip install dkitchen</code></sub> · <a href="https://pypi.org/project/dkitchen/">PyPI</a> · <a href="https://github.com/917Dhj/dkitchen">Repository</a> · <a href="https://github.com/917Dhj/dkitchen/blob/main/docs/ding.md">Docs</a>
 
-<img src="./assets/diverter-project.png" width="24" alt="" />&nbsp;**<a href="https://github.com/GML-MMGroup/Diverter">Diverter</a>** &nbsp;<sub>29★ · Codex plugin · MIT · GML-MMGroup</sub>
+<img src="./assets/diverter-project.png" width="24" alt="" />&nbsp;**<a href="https://github.com/GML-MMGroup/Diverter">Diverter</a>** &nbsp;<sub>Codex plugin · MIT · GML-MMGroup</sub>
 
 *One task in. The right subagents out.*
 

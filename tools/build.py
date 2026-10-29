@@ -71,14 +71,21 @@ SPRITE_INK = {'K': 'ink', 'W': 'white', 'C': 'cream', 'S': 'cream_shade',
 EYES = ((12, 13), (18, 19))
 
 
-def pixel_sprite(blink=False, led=True):
-    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+def draw_map(rows):
+    """Paint a character map, one pixel per character, '.' left transparent."""
+    im = Image.new('RGBA', (len(rows[0]), len(rows)), (0, 0, 0, 0))
     px = im.load()
-    for y, row in enumerate(SPRITE):
-        assert len(row) == 32, (y, row)
+    for y, row in enumerate(rows):
+        assert len(row) == len(rows[0]), (y, row)
         for x, ch in enumerate(row):
             if ch != '.':
                 px[x, y] = ImageColor.getcolor(COL[SPRITE_INK[ch]], 'RGBA')
+    return im
+
+
+def pixel_sprite(blink=False, led=True):
+    im = draw_map(SPRITE)
+    px = im.load()
     if blink:
         # Eyes close to a single line on their bottom row.
         for xs in EYES:
@@ -104,8 +111,93 @@ for f in _frames:
     frames.append(canvas_im)
 frames[0].save(ASSETS / 'hj-pixel.png')
 
+# Project icons: 16x16 maps in the avatar's palette and outline, so the four
+# entries under "What I ship" read as one set. Shown at 24px; the 96px file
+# lands on whole pixels at 2x and 3x.
+ICONS = {
+    # a page of notes under a magnifier
+    'deeppapernote': (
+        '................',
+        '.KKKKKKKKK......',
+        '.KWWWWWWWKK.....',
+        '.KWCCCCCCKSK....',
+        '.KWGGGGGCKKKK...',
+        '.KWCCCCCCCCSK...',
+        '.KWGGGGGGGCSK...',
+        '.KWCCCCKKKKSK...',
+        '.KWGGGKWbbbKK...',
+        '.KWCCCKbbbbKK...',
+        '.KWGGCKbbbbKK...',
+        '.KWCCCKbbbbKK...',
+        '.KSSSSSKKKKRK...',
+        '.KKKKKKKKKKKRR..',
+        '............RRQ.',
+        '.............QQ.',
+    ),
+    # the avatar's screen face under a chef's hat
+    'dkitchen': (
+        '.....KK..KK.....',
+        '...KKWWKKWWKK...',
+        '..KWWWWWWWWWSK..',
+        '..KWWWWWWWWWSK..',
+        '...KWWWWWWWSK...',
+        '...KLLLLLLLDK...',
+        '..KKKKKKKKKKKK..',
+        '..KWCCCCCCCCSK..',
+        '..KCKKKKKKKKSK..',
+        '..KCKNBNNBNKSK..',
+        '..KCKNBNNBNKSK..',
+        '..KCKNNBBNNKSK..',
+        '..KCKKKKKKKKSK..',
+        '..KSSSSSSSSSSK..',
+        '...KKKKKKKKKK...',
+        '................',
+    ),
+    # one task in, routed to three specialists
+    'diverter': (
+        '................',
+        '...........KKKK.',
+        '.......GGGGKhRK.',
+        '.......GGGGKRQK.',
+        '.......GG..KKKK.',
+        'KKKKKK.GG.......',
+        'KBCCSK.GG..KKKK.',
+        'KCBCSGGGGGGKbBK.',
+        'KCBCSGGGGGGKBBK.',
+        'KBCCSK.GG..KKKK.',
+        'KKKKKK.GG.......',
+        '.......GG..KKKK.',
+        '.......GGGGKyAK.',
+        '.......GGGGKAaK.',
+        '...........KKKK.',
+        '................',
+    ),
+    # a note pulled down from the menu bar
+    'draftbar': (
+        '................',
+        'KKKKKKKKKKKKKKKK',
+        'KDDLDDLLLLRRLDDK',
+        'KKKKKKKKKKKKKKKK',
+        '..........KK....',
+        '..KKKKKKKKKKKK..',
+        '..KWWWWWWWWWWK..',
+        '..KWRRCGGGGCSK..',
+        '..KWCCCCCCCCSK..',
+        '..KWGGGGGGGCSK..',
+        '..KWCCCCCCCCSK..',
+        '..KWGGGGRCCCSK..',
+        '..KWCCCCCCCCSK..',
+        '..KSSSSSSSSSSK..',
+        '..KKKKKKKKKKKK..',
+        '................',
+    ),
+}
+for name, rows in ICONS.items():
+    draw_map(rows).resize((96, 96), Image.Resampling.NEAREST).save(ASSETS / f'{name}-project.png')
+
 EXTRA = ['#DDE2E1', '#EBC3B1', '#EDF0EF', '#F0E4DD',
-         '#141413', '#3D3D3A', '#6C6A64', '#CC785C', '#E8A55A', '#E8E0D2', '#E6DFD8']
+         '#141413', '#3D3D3A', '#6C6A64', '#CC785C', '#E8A55A', '#E8E0D2', '#E6DFD8',
+         '#CDBB9C', '#E6EDF3', '#B1BAC4', '#8B949E']
 
 
 def save_gif(frames, path, frame_ms):
@@ -160,11 +252,17 @@ SCALE_TOP, SCALE_BOTTOM = 9, 19
 SCALE_ROW = 6                      # print-head row pitch, the "printed" texture
 SCALE_H = SCALE_RAIL + SCALE_LEAD + SCALE_BOTTOM
 SCALE_FRAMES, SCALE_MS = 10, 300   # 10 * 300ms = 3.0s loop, deliberately stepped
-SCALE_INK = '#141413'
-SCALE_SEAM = '#E6DFD8'
-# Claude's own tokens: warm ink, warm greys, coral, amber, cream.
-SCALE_PALETTE = ('#141413', '#3D3D3A', '#6C6A64', '#CC785C', '#E8A55A', '#E8E0D2')
+SCALE_PX = 2                       # drawn at 2x so retina screens get whole pixels
+# Claude's own tokens: warm ink, warm greys, coral, amber, cream. The dark-mode
+# strip inverts the ink end so it does not vanish into GitHub's #0d1117, and the
+# light strip ends on a deeper sand so the last bars still read on white.
+SCALE_THEMES = {
+    'light': ('#141413', ('#141413', '#3D3D3A', '#6C6A64', '#CC785C', '#E8A55A', '#CDBB9C')),
+    'dark': ('#E6EDF3', ('#E6EDF3', '#B1BAC4', '#8B949E', '#CC785C', '#E8A55A', '#E8E0D2')),
+}
 SCALE_COLS = SCALE_W // (SCALE_COL + SCALE_COL_GAP)
+# centre the bars under the rail so neither end overhangs
+SCALE_X0 = (SCALE_W - (SCALE_COLS * (SCALE_COL + SCALE_COL_GAP) - SCALE_COL_GAP)) // 2
 
 
 def scale_height(i, t):
@@ -176,28 +274,30 @@ def scale_height(i, t):
     return int(max(SCALE_TOP, min(SCALE_BOTTOM, round(SCALE_TOP + span * value))))
 
 
-def scale_frames():
+def scale_frames(ink, palette):
     out = []
     for t in range(SCALE_FRAMES):
         im = Image.new('RGBA', (SCALE_W, SCALE_H), (0, 0, 0, 0))
         d = ImageDraw.Draw(im)
         # the rail is the ceiling the bars hang from; without it they read as floating
-        d.rectangle((0, 0, SCALE_W - 1, SCALE_RAIL - 1), fill=SCALE_INK)
+        d.rectangle((0, 0, SCALE_W - 1, SCALE_RAIL - 1), fill=ink)
         for i in range(SCALE_COLS):
             h = scale_height(i, t)
-            x = i * (SCALE_COL + SCALE_COL_GAP)
+            x = SCALE_X0 + i * (SCALE_COL + SCALE_COL_GAP)
             top = SCALE_RAIL + SCALE_LEAD
-            colour = SCALE_PALETTE[min(len(SCALE_PALETTE) - 1, i * len(SCALE_PALETTE) // SCALE_COLS)]
-            d.rectangle((x, top, x + SCALE_COL - 1, top + h - 1), fill=colour)
-            # break every print row with a light seam: the print-head rhythm
+            colour = palette[min(len(palette) - 1, i * len(palette) // SCALE_COLS)]
+            # every print row ends in a transparent seam: the print-head rhythm,
+            # and it shows the page through in either theme
             for k in range(h):
-                if k % SCALE_ROW == SCALE_ROW - 1:
-                    d.rectangle((x, top + k, x + SCALE_COL - 1, top + k), fill=SCALE_SEAM)
-        out.append(im)
+                if k % SCALE_ROW != SCALE_ROW - 1:
+                    d.rectangle((x, top + k, x + SCALE_COL - 1, top + k), fill=colour)
+        out.append(im.resize((SCALE_W * SCALE_PX, SCALE_H * SCALE_PX), Image.Resampling.NEAREST))
     return out
 
 
-save_gif(scale_frames(), ASSETS / 'px-scale.gif', SCALE_MS)
+for theme, (ink, palette) in SCALE_THEMES.items():
+    name = 'px-scale.gif' if theme == 'light' else 'px-scale-dark.gif'
+    save_gif(scale_frames(ink, palette), ASSETS / name, SCALE_MS)
 
 # A terminal block cursor at the very end of the page: the document stops where
 # you would start typing. Blinks slower than a real caret so it reads as calm.

@@ -21,13 +21,15 @@ Output lands in `tools/preview/` (git-ignored): `preview.html`, `desktop.png`, `
   GitHub gives floated images no margin and the avatar sits left of the heading.
 - `assets/px-mark.gif` — the breathing pixel marker used in section headings, also generated.
 - `assets/px-caret.gif` — the blinking terminal cursor that closes the page.
-- `assets/px-scale.gif` — the animated print-head wave across the top. 4px columns on a 16px pitch
-  (53 bars), 6px row seams, gentle 9–19px amplitude,
-  10 frames at 300ms (deliberately stepped). Colours are Claude's design tokens:
-  `#141413` ink → `#3D3D3A` → `#6C6A64` → `#CC785C` coral → `#E8A55A` amber → `#E8E0D2` cream,
-  with `#E6DFD8` as the seam.
-- `assets/*-project.png` — 128px icons derived from each project's own artwork. Commit them;
-  `tools/assets-src/` holds the full-resolution originals locally (git-ignored) if you want to re-export.
+- `assets/px-scale.gif` and `assets/px-scale-dark.gif` — the animated print-head wave across the top,
+  swapped by a `<picture>` on `prefers-color-scheme`. 4px columns on a 16px pitch (53 bars),
+  transparent 1px row seams every 6px, gentle 9–19px amplitude, 10 frames at 300ms (deliberately
+  stepped). Drawn at 2× (1720×46) and shown at `width="860"` with no height, so it scales in
+  proportion on narrow screens. Light: `#141413` ink → `#3D3D3A` → `#6C6A64` → `#CC785C` coral →
+  `#E8A55A` amber → `#CDBB9C` sand. Dark swaps the ink end for `#E6EDF3` → `#B1BAC4` → `#8B949E`
+  and ends on `#E8E0D2` cream.
+- `assets/*-project.png` — the project icons, 16×16 character maps (`ICONS` in `build.py`) in the
+  avatar's palette, exported at 96px and shown at 24px.
 - `README.md` — hand-written source of truth. `build.py` only reads it.
 - `README.zh-CN.md` — Chinese translation, deliberately **not published**: it is listed in
   `.git/info/exclude` so it stays local. Remove that line when you want to ship it.
@@ -37,5 +39,6 @@ Output lands in `tools/preview/` (git-ignored): `preview.html`, `desktop.png`, `
 The preview is an approximation of GitHub's markdown typography, not a replica. Open the real
 profile once after pushing and check light mode, dark mode, and a narrow window.
 
-Two numbers are hardcoded and will drift: `1.2k★` in both READMEs. The shields.io badges at the
-top are live, so bump the hardcoded figure only when it is visibly out of date.
+Star counts live only in the shields.io badges at the top, so nothing there drifts. The version
+and release numbers in each project's subtitle (`PyPI 0.5.8 · 17 releases`, `v2.0.3`) are still
+hand-written: bump them when you cut a release.
