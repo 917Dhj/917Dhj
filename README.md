@@ -6,7 +6,7 @@
 **AI Engineer · Open-Source Builder**<br/>
 Long-video Understanding / Multimodal Agents / Agentic RL
 
-I study how AI understands people in long video, and build the tools that help people do better research.
+I build agent tooling that researchers run every day, and study how AI understands people in long video.
 
 🎓 M.S. in Computer Science, **Shenzhen University**<br/>
 Graduating 2028 · looking for **engineering internships** in agents, developer tooling and applied AI.
@@ -19,7 +19,7 @@ Graduating 2028 · looking for **engineering internships** in agents, developer 
 
 ## <img src="./assets/px-mark.gif" width="12" height="12" alt="" />&nbsp;&nbsp;What I ship
 
-<img src="./assets/deeppapernote-project.png" width="24" alt="" />&nbsp;**<a href="https://github.com/917Dhj/DeepPaperNote">DeepPaperNote</a>** &nbsp;<sub>MIT · Obsidian + Zotero</sub>
+<img src="./assets/deeppapernote-project.png" width="24" alt="" />&nbsp;**<a href="https://github.com/917Dhj/DeepPaperNote">DeepPaperNote</a>** &nbsp;<a href="https://github.com/917Dhj/DeepPaperNote/stargazers"><img src="https://img.shields.io/github/stars/917Dhj/DeepPaperNote?style=flat-square&label=stars&color=D97757&logo=github&logoColor=white" alt="DeepPaperNote GitHub stars" height="20" align="absmiddle" /></a> &nbsp;<sub>MIT · Obsidian + Zotero</sub>
 
 *The single-paper ingestion layer for an LLM-maintained academic wiki.*
 
