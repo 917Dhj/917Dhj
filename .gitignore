@@ -1,0 +1,9 @@
+# local preview output
+tools/preview/
+
+# full-resolution source artwork, kept locally for re-exporting the 128px icons
+tools/assets-src/
+
+.DS_Store
+__pycache__/
+*.pyc
