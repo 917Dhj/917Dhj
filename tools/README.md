@@ -15,7 +15,8 @@ Output lands in `tools/preview/` (git-ignored): `preview.html`, `desktop.png`, `
 
 ## What is generated vs. what is committed
 
-- `assets/hj-pixel.gif` and `assets/hj-pixel.png` — the avatar, drawn from scratch in `build.py`.
+- `assets/hj-pixel.gif` and `assets/hj-pixel.png` — the avatar, drawn from scratch in `build.py`
+  as a 32×32 character map (`SPRITE`), one character per pixel, scaled 8× with nearest-neighbour.
   The canvas is 291×256: the extra 35 columns on the right are transparent padding, because
   GitHub gives floated images no margin and the avatar sits left of the heading.
 - `assets/px-mark.gif` — the breathing pixel marker used in section headings, also generated.

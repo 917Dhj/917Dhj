@@ -11,7 +11,7 @@ README.md is the source of truth and is never rewritten here.
 from pathlib import Path
 import math
 import mistune
-from PIL import Image, ImageDraw
+from PIL import Image, ImageColor, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / 'assets'
@@ -21,59 +21,73 @@ PREVIEW.mkdir(parents=True, exist_ok=True)
 
 COL = {'ink': '#2B3440', 'clay': '#D97757', 'blue': '#2B8FFF', 'brass': '#C8923A',
        'paper': '#F8F7F3', 'light': '#E7E9E8', 'silver': '#C4CCD0', 'mint': '#78BCAE',
-       'screen': '#222F3B', 'gray': '#67727B', 'white': '#FFFFFF', 'cream': '#F3EEE6'}
+       'screen': '#222F3B', 'gray': '#67727B', 'white': '#FFFFFF', 'cream': '#F3EEE6',
+       'cream_shade': '#DCD3C4', 'clay_dark': '#B65A3D', 'clay_light': '#F2A98A',
+       'brass_dark': '#94672A', 'amber': '#E8A55A', 'glare': '#3A4D5E',
+       'blue_light': '#9CCBFF', 'silver_dark': '#9AA5AB'}
 
 
-def r(draw, xy, fill):
-    draw.rectangle(tuple(xy), fill=fill)
+# One character per pixel on a 32x32 grid, so every block scales to the same
+# 8px square. Light comes from the top left: highlights there, shade bottom right.
+SPRITE = (
+    '................................',
+    '..............KKKK..............',
+    '.............KhhRRK.............',
+    '.............KhRRRK.............',
+    '.............KRRRQK.............',
+    '..............KKKK..............',
+    '..............KWLK..............',
+    '..............KWLK..............',
+    '........KKKKKKKKKKKKKKKK........',
+    '......KKWWWWWWWWWWWWWWCCKK......',
+    '.....KWWCCCCCCCCCCCCCCCCCSK.....',
+    '.....KWCCKKKKKKKKKKKKKKCCSK.....',
+    '.....KWCKNggNNNNNNNNNNNKCSK.....',
+    '..KK.KWCKNgNbBNNNNbBNNNKCSK.KK..',
+    '.KyaKKWCKNNNBBNNNNBBNNNKCSKKyaK.',
+    '.KAaKKWCKNNNBBNNNNBBNNNKCSKKAaK.',
+    '.KAaKKCCKNNNNNNNNNNNNNNKCSKKAaK.',
+    '.KAaKKCCKNrrNBNNNNBNrrNKCSKKAaK.',
+    '..KK.KCCKNNNNNBBBBNNNNNKCSK.KK..',
+    '.....KCCKNNNNNNNNNNNNNNKCSK.....',
+    '.....KCCCKKKKKKKKKKKKKKCCSK.....',
+    '.....KCCCCCCCCCCCCCCCMMCCSK.....',
+    '.....KSCCCCCCCCCCCCCCCCCSSK.....',
+    '......KKSSSSSSSSSSSSSSSSKK......',
+    '........KKKKKKKKKKKKKKKK........',
+    '.............KGGGGK.............',
+    '..........KKKKKKKKKKKK..........',
+    '.........KWWLLLLLLLLLLK.........',
+    '........KWLLBBLLRRLLBBDK........',
+    '........KLLLLLLLQQLLLLDK........',
+    '........KKKKKKKKKKKKKKKK........',
+    '.......llllllllllllllllll.......',
+)
+SPRITE_INK = {'K': 'ink', 'W': 'white', 'C': 'cream', 'S': 'cream_shade',
+              'R': 'clay', 'Q': 'clay_dark', 'h': 'clay_light', 'r': 'clay_light',
+              'A': 'brass', 'a': 'brass_dark', 'y': 'amber',
+              'N': 'screen', 'g': 'glare', 'B': 'blue', 'b': 'blue_light',
+              'M': 'mint', 'G': 'gray', 'L': 'silver', 'D': 'silver_dark', 'l': 'light'}
+EYES = ((12, 13), (18, 19))
 
 
-def pixel_sprite(blink=False, led=True, smile=True):
-    im = Image.new('RGBA', (64, 64), (0, 0, 0, 0))
-    d = ImageDraw.Draw(im)
-    # Offset shadow: a tiny isolated signature, not a large illustration.
-    r(d, (14, 56, 50, 58), COL['silver'])
-    r(d, (19, 50, 46, 55), COL['ink'])
-    r(d, (21, 48, 44, 54), COL['silver'])
-    r(d, (24, 52, 27, 54), COL['blue'])
-    r(d, (38, 52, 41, 54), COL['blue'])
-    # Short antenna with a single clay pixel (the brand motif).
-    r(d, (30, 5, 34, 12), COL['ink'])
-    r(d, (29, 3, 35, 7), COL['clay'])
-    r(d, (31, 8, 33, 14), COL['silver'])
-    # Square stair-step head silhouette and dark outline.
-    r(d, (17, 13, 47, 14), COL['ink'])
-    r(d, (13, 16, 51, 17), COL['ink'])
-    r(d, (11, 18, 53, 44), COL['ink'])
-    r(d, (13, 45, 51, 47), COL['ink'])
-    r(d, (17, 48, 47, 49), COL['ink'])
-    r(d, (15, 19, 49, 43), COL['cream'])
-    r(d, (18, 16, 46, 19), COL['cream'])
-    r(d, (18, 43, 46, 46), COL['cream'])
-    # Left and right metal knobs.
-    r(d, (8, 28, 11, 36), COL['ink'])
-    r(d, (9, 30, 11, 34), COL['brass'])
-    r(d, (53, 28, 56, 36), COL['ink'])
-    r(d, (53, 30, 55, 34), COL['brass'])
-    # Inset slate display.
-    r(d, (18, 22, 46, 41), COL['ink'])
-    r(d, (20, 24, 44, 39), COL['screen'])
-    # Eyes rest wide, with a brief blink.
+def pixel_sprite(blink=False, led=True):
+    im = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+    px = im.load()
+    for y, row in enumerate(SPRITE):
+        assert len(row) == 32, (y, row)
+        for x, ch in enumerate(row):
+            if ch != '.':
+                px[x, y] = ImageColor.getcolor(COL[SPRITE_INK[ch]], 'RGBA')
     if blink:
-        r(d, (24, 30, 28, 31), COL['blue'])
-        r(d, (36, 30, 40, 31), COL['blue'])
-    else:
-        r(d, (24, 27, 28, 33), COL['blue'])
-        r(d, (36, 27, 40, 33), COL['blue'])
-    # One-pixel smile.
-    if smile:
-        r(d, (29, 35, 30, 36), COL['blue'])
-        r(d, (31, 37, 35, 38), COL['blue'])
-        r(d, (36, 35, 37, 36), COL['blue'])
-    # A single clay pixel on the cheek.
-    r(d, (42, 34, 43, 35), COL['clay'])
-    # Status LED on the casing.
-    r(d, (43, 18, 45, 20), COL['mint'] if led else COL['silver'])
+        # Eyes close to a single line on their bottom row.
+        for xs in EYES:
+            for x in xs:
+                for y in (13, 14):
+                    px[x, y] = px[9, 15]
+    if not led:
+        for x in (21, 22):
+            px[x, 21] = px[9, 21]
     return im
 
 
