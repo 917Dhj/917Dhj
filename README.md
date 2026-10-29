@@ -3,18 +3,19 @@
 
 # <img src="./assets/hj-pixel.gif" alt="A small pixel robot, blinking" width="76" align="left" /><br/>Hey, I'm HJ Ding 👋
 
-**AI Researcher · Open-Source Builder**<br/>
+**AI Engineer · Open-Source Builder**<br/>
 Long-video Understanding / Multimodal Agents / Agentic RL
 
 I study how AI understands people in long video, and build the tools that help people do better research.
 
-🎓 M.S. in Computer Science, **Shenzhen University**
+🎓 M.S. in Computer Science, **Shenzhen University**<br/>
+Graduating 2028 · looking for **engineering internships** in agents, developer tooling and applied AI.
 
 <a href="https://github.com/917Dhj/DeepPaperNote"><img src="https://img.shields.io/github/stars/917Dhj/DeepPaperNote?style=flat-square&label=DeepPaperNote&color=D97757&logo=github&logoColor=white" alt="DeepPaperNote stars" height="20" /></a>
 <a href="https://pypi.org/project/dkitchen/"><img src="https://img.shields.io/pypi/v/dkitchen?style=flat-square&label=dkitchen&color=2B8FFF&logo=pypi&logoColor=white" alt="dkitchen on PyPI" height="20" /></a>
 <a href="https://github.com/917Dhj/DraftBar/releases/latest"><img src="https://img.shields.io/github/v/release/917Dhj/DraftBar?style=flat-square&label=DraftBar&color=C8923A&logo=apple&logoColor=white" alt="DraftBar latest release" height="20" /></a>
 
-✉️ <a href="mailto:2510813014@mails.szu.edu.cn">Email</a> · <a href="https://x.com/dahuoji09">X</a> · <a href="https://917dhj.github.io/DeepPaperNote/">DeepPaperNote site</a>
+✉️ <a href="mailto:2510813014@mails.szu.edu.cn">Email</a> · <a href="https://www.linkedin.com/in/%E6%B3%93%E6%99%AF-%E4%B8%81-b014a23ba/">LinkedIn</a> · <a href="https://x.com/dahuoji09">X</a> · <a href="https://917dhj.github.io/DeepPaperNote/">DeepPaperNote site</a>
 
 ## <img src="./assets/px-mark.gif" width="12" height="12" alt="" />&nbsp;&nbsp;What I ship
 
@@ -30,7 +31,7 @@ Most paper-reading agents hand you a prettier summary. DeepPaperNote keeps the e
 
 *Your agents run the kitchen; you stay the head chef.*
 
-The bottleneck in agent-run research is not execution — it is that you become the message bus. dkitchen gives every session a station, routes work through GitHub issues as tickets, puts a verifier between a plan and the GPU bill, and lets a `ding` wake a session when its long job exits. Nothing moves without your approval, in your own words.
+The bottleneck in agent-run research is not execution — it is that you become the message bus. dkitchen gives every session a station, routes work through GitHub issues as tickets, puts a verifier between a plan and the GPU bill, and wakes a session back up when its long job finishes (`ding`). Nothing moves without your approval, in your own words.
 
 <sub><code>pip install dkitchen</code></sub> · <a href="https://pypi.org/project/dkitchen/">PyPI</a> · <a href="https://github.com/917Dhj/dkitchen">Repository</a> · <a href="https://github.com/917Dhj/dkitchen/blob/main/docs/ding.md">Docs</a>
 
@@ -38,7 +39,7 @@ The bottleneck in agent-run research is not execution — it is that you become 
 
 *One task in. The right subagents out.*
 
-Ultra gives Codex a delegation strategy, but only inside Ultra sessions. Diverter distills it into ordinary ones: it decides when a task can split, routes each piece to the right specialist role, keeps the main thread on the critical path, and steps aside the moment Codex already delegates natively. Backed by 60+ automated tests and real subagent-lifecycle runs.
+A coding agent does better on a big task when it hands pieces to specialist subagents, but Codex only plans that split for you in its Ultra mode. Diverter brings the same planning to everyday sessions: it decides when a task can split, routes each piece to the right specialist role, keeps the main thread on the critical path, and steps aside whenever Codex is already delegating on its own. Backed by 60+ automated tests and real subagent-lifecycle runs.
 
 <a href="https://github.com/GML-MMGroup/Diverter">Repository</a>
 
@@ -61,6 +62,8 @@ A native menu-bar scratchpad: pull it out, type, and the draft lands in a plain 
 
 ## <img src="./assets/px-mark.gif" width="12" height="12" alt="" />&nbsp;&nbsp;Open to
 
-Conversations with people building the tooling layer underneath AI research — agent orchestration, retrieval, packaging, the unglamorous parts. If you want a paper turned into a durable note, start with [DeepPaperNote](https://917dhj.github.io/DeepPaperNote/). If you want to argue about how agent sessions should hand off work, [email me](mailto:2510813014@mails.szu.edu.cn).
+**Engineering internships in agents, developer tooling and applied AI.** The part I like is turning agent ideas into tools people run every day: orchestration, retrieval, packaging, and the plumbing that keeps long jobs moving without a human playing message bus. If your team is hiring for that, [email me](mailto:2510813014@mails.szu.edu.cn) or find me on [LinkedIn](https://www.linkedin.com/in/%E6%B3%93%E6%99%AF-%E4%B8%81-b014a23ba/).
+
+Also glad to argue about how agent sessions should hand off work, or to hear where [DeepPaperNote](https://917dhj.github.io/DeepPaperNote/) got your field wrong.
 
 <p><code>&gt;</code>&nbsp;<img src="./assets/px-caret.gif" width="7" height="14" alt="" /></p>
