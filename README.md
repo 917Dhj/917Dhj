@@ -15,7 +15,10 @@ Graduating 2028 · looking for **engineering internships** in agents, developer 
 <a href="https://pypi.org/project/dkitchen/"><img src="https://img.shields.io/pypi/v/dkitchen?style=flat-square&label=dkitchen&color=2B8FFF&logo=pypi&logoColor=white" alt="dkitchen on PyPI" height="20" /></a>
 <a href="https://github.com/917Dhj/DraftBar/releases/latest"><img src="https://img.shields.io/github/v/release/917Dhj/DraftBar?style=flat-square&label=DraftBar&color=C8923A&logo=apple&logoColor=white" alt="DraftBar latest release" height="20" /></a>
 
-✉️ <a href="mailto:2510813014@mails.szu.edu.cn">Email</a> · <a href="https://www.linkedin.com/in/%E6%B3%93%E6%99%AF-%E4%B8%81-b014a23ba/">LinkedIn</a> · <a href="https://x.com/dahuoji09">X</a> · <a href="https://917dhj.github.io/DeepPaperNote/">DeepPaperNote site</a>
+✉️ **Email** &nbsp;<a href="mailto:dahuoji0917@qq.com">dahuoji0917@qq.com</a><br/>
+💼 **LinkedIn** &nbsp;<a href="https://www.linkedin.com/in/%E6%B3%93%E6%99%AF-%E4%B8%81-b014a23ba/">linkedin.com/in/泓景-丁-b014a23ba</a><br/>
+𝕏 **X** &nbsp;<a href="https://x.com/dahuoji09">x.com/dahuoji09</a><br/>
+📕 **小红书 (RedNote)** &nbsp;ID 309899988
 
 ## <img src="./assets/px-mark.gif" width="12" height="12" alt="" />&nbsp;&nbsp;What I ship
 
@@ -62,7 +65,7 @@ A native menu-bar scratchpad: pull it out, type, and the draft lands in a plain 
 
 ## <img src="./assets/px-mark.gif" width="12" height="12" alt="" />&nbsp;&nbsp;Open to
 
-**Engineering internships in agents, developer tooling and applied AI.** The part I like is turning agent ideas into tools people run every day: orchestration, retrieval, packaging, and the plumbing that keeps long jobs moving without a human playing message bus. If your team is hiring for that, [email me](mailto:2510813014@mails.szu.edu.cn) or find me on [LinkedIn](https://www.linkedin.com/in/%E6%B3%93%E6%99%AF-%E4%B8%81-b014a23ba/).
+**Engineering internships in agents, developer tooling and applied AI.** The part I like is turning agent ideas into tools people run every day: orchestration, retrieval, packaging, and the plumbing that keeps long jobs moving without a human playing message bus. If your team is hiring for that, [email me](mailto:dahuoji0917@qq.com) or find me on [LinkedIn](https://www.linkedin.com/in/%E6%B3%93%E6%99%AF-%E4%B8%81-b014a23ba/).
 
 Also glad to argue about how agent sessions should hand off work, or to hear where [DeepPaperNote](https://917dhj.github.io/DeepPaperNote/) got your field wrong.
 
